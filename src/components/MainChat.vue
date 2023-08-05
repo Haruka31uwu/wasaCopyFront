@@ -193,4 +193,24 @@ export default {
 };
 </script>
 
-1
+<style>
+.preloader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Color semitransparente */
+  z-index: 9999; /* Z-index alto para que esté por encima de todo */
+  display: none; /* Inicialmente oculto */
+}
+
+body.preloader-active {
+  overflow: hidden; /* Evita que el cuerpo haga scroll */
+}
+
+body.preloader-active .preloader-overlay {
+  display: block; /* Mostrar el overlay cuando el preloader está activo */
+}
+
+</style>

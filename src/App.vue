@@ -1,19 +1,26 @@
 <template>
   <div id="app">
-    <main-chat class="main-chat"></main-chat>
+    <!--<main-chat class="main-chat"></main-chat> -->
+    <main-page></main-page>
   </div>
 </template>
 
 <script>
-import MainChat from './components/MainChat.vue'
+import echo from './sockets/index'
+// import MainChat from './components/MainChat.vue'
+import MainPage from './components/Auth/MainPage.vue'
 export default{
   components:{
-    MainChat
+    //MainChat,
+    MainPage
   },
   data(){
     return {
 
     }
+  },
+  created(){
+    echo
   }
 }
 </script>
