@@ -38,7 +38,7 @@ export default {
   display: flex;
   align-content: center;
   flex-direction: column;
-  margin-top:10em;
+ 
 }
 .login-header {
   display: flex;

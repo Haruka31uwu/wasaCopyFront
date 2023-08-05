@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-
+import axios from 'axios';
 const globalMixin={
     methods: {
         showSuccessSwal(title,message){
@@ -19,14 +19,33 @@ const globalMixin={
             footer:'<a href="">Why do I have this issue?</a>'
             }) 
         },
-        showPreloader(){
-            document.body.classList.add('preloader-active'); // Aplicar clase para el overlay
-
+        addPreloader(){
+            
+            const loader=document.getElementById('loader');
+            console.log(loader);
+            if(loader){
+                loader.classList.add('preloader-active');
+            }
         },
         removePreloader(){
-            document.body.classList.remove('preloader-active'); // Remover clase para el overlay
+            const loader=document.getElementById('loader');
+            console.log(loader);
+            if(loader){
+                loader.classList.remove('preloader-active');
+            }
+            
+        },
+        async sendRequest(url,method,data){
+            try {
+                return axios({
+                    method:method,
+                    url:'http://127.0.0.1:8000/api/'+url,
+                    data:data
+                });
+            }catch (error) {
+                console.log(error);
+            }
         }
-
     },
 }
 export default globalMixin;
