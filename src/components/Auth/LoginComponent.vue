@@ -14,6 +14,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "LoginComponent",
   data(){
@@ -25,9 +26,36 @@ export default {
   created(){
   },
   methods:{
-    loginAccount(){
-        if(this.email.trim()!=''&&this.password.trim()!=''&& this.password.trim().length>6){
-            this.showSuccessSwal();
+    ...mapActions({
+      A_SET_USER: "A_SET_USER",
+      A_SET_USER_CONTACTS: "A_SET_USER_CONTACTS",
+    }),
+
+    async loginAccount(){
+        if(this.email.trim()!=''&&this.password.trim()!=''&& this.password.trim().length>=6){
+            const params = {
+                email:this.email,
+                password:this.password
+            }
+           try{
+            const data=await this.sendRequest('login-user','post',params);
+            if(data.status===200){
+                this.showSuccessSwal();
+                localStorage.setItem('token', '123456')
+                localStorage.setItem('user', JSON.stringify(data.data.user))
+                localStorage.setItem('contacts', JSON.stringify(data.data.contacts[0].user_contacts_json))
+                this.A_SET_USER(data.data.user);
+                this.A_SET_USER_CONTACTS(JSON.stringify(data.data.contacts[0].user_contacts_json));
+                this.$router.push('/chat');
+            }else{
+                this.showErrorSwal(data.message);
+            }
+           }catch(err){
+            this.showErrorSwal(err.message);
+            // this.showSuccessSwal();
+            // localStorage.setItem('token', '123456789')
+            // this.$router.push('/chat');
+           }
         }
     }
   }

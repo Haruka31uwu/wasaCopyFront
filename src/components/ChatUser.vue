@@ -1,11 +1,12 @@
 <template>
   <div class="main-chat">
-    <div class="chat-container">
+    <div class="chat-container" v-if="G_CHAT_SELECTED">
       <div
         v-for="(item, index) in chatMessages"
+        
         :key="index"
         :class="
-          (item.user.idUser == user.id
+          (item.created_by == user.id
             ? 'message-container-user message-container'
             : 'message-container-others message-container')
         "
@@ -21,6 +22,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
   props: {
     chatMessages: {
@@ -35,6 +37,11 @@ export default {
   },
   data() {
     return {};
+  },
+  computed: {
+    ...mapGetters({
+      G_CHAT_SELECTED: 'G_CHAT_SELECTED',
+    })
   },
 };
 </script>

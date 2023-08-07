@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <!--<main-chat class="main-chat"></main-chat> -->
-    <main-page></main-page>
+    <router-view></router-view>
+
+    
+    <!-- <main-chat class="main-chat"></main-chat> 
+    <main-page></main-page> -->
     <div class="preloader-overlay align-items-center justify-content-center" id="loader">
       <div class="spinner-border text-light" role="status">
       </div>
@@ -12,11 +15,11 @@
 <script>
 import echo from './sockets/index'
 // import MainChat from './components/MainChat.vue'
-import MainPage from './components/Auth/MainPage.vue'
+// import MainPage from './components/Auth/MainPage.vue'
 export default{
   components:{
     //MainChat,
-    MainPage
+    // MainPage
   },
   data(){
     return {
