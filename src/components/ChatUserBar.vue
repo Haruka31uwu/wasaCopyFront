@@ -2,7 +2,8 @@
     <div class="chat-header">
         <div class="chat-header-info">
             <div>
-                <span>{{user.chatName}}</span>
+
+                <span>{{contact.contact_name}}</span>
             </div>
         </div>
         <div class="chat-header-options">
@@ -15,7 +16,7 @@
 <script>
 export default{
     props:{
-        user:{
+        contact:{
             type: Object,
             required: true
         }
@@ -25,6 +26,7 @@ export default{
             
         }
     }
+    
 }
 </script>
 <style scoped>

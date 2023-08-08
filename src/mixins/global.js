@@ -22,14 +22,12 @@ const globalMixin={
         addPreloader(){
             
             const loader=document.getElementById('loader');
-            console.log(loader);
             if(loader){
                 loader.classList.add('preloader-active');
             }
         },
         removePreloader(){
             const loader=document.getElementById('loader');
-            console.log(loader);
             if(loader){
                 loader.classList.remove('preloader-active');
             }

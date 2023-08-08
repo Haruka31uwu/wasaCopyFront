@@ -67,7 +67,7 @@
       />
     </div>
     <div class="message-bar-send">
-      <pre>{{ textInput.length }}</pre>
+
       <b-icon icon="mic" class="menu-bar-option" v-if="textInput.length <= 0" />
       <b-icon icon="arrow-right" class="menu-bar-option" v-else  @click="sendMessage"/>
     </div>
@@ -129,10 +129,11 @@ export default {
   flex-direction: wrap;
   align-items: center;
   height: 50%;
+  width:5%;
   position: relative;
 }
 .message-bar-input {
-  width: 100%;
+  width: 69%;
   padding: 0 1em;
 }
 .message-bar-send {
@@ -140,7 +141,10 @@ export default {
   flex-direction: wrap;
   align-items: center;
   justify-content: center;
-  height: 50%;
+  height: auto;
+  position: fixed;
+  right: 0;
+  bottom: 0;
 }
 .menu-bar-option {
   margin: 0 0.1em;

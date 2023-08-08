@@ -1,16 +1,16 @@
 <template >
-    <div style="width: 100%;">
+    <div style="width: 100%;" class="main-side-bar">
         <user-side-bar-bar />
         <div class="user-contacts" >
             <div class="user-contacts-item" 
                 v-for="(item,index) in JSON.parse(JSON.parse(contacts))" 
                 :key="index"
-                @click="selectChat(index,item.contact_id)"
+                @click="selectChat(index,item)"
                 :style="chatSelected==index?'background-color: #e6e6e6;':''">
                 <div class="user-contacts-item-img">
                     <b-icon icon="person-circle" font-scale="3"  variant="primary" ></b-icon>
                 </div>
-                <div class="user-contacts-item-info">{{item}}</div>
+                <div class="user-contacts-item-info">{{item.contact_name}}</div>
                 <div class="user-contacts-item-time">12:12</div>
             </div>
         </div>
@@ -41,20 +41,20 @@ export default {
         ...mapActions({
             selectChats: 'A_SET_CHAT_SELECTED'
         }),
-        selectChat(index,contact_id){
+        selectChat(index,item){
             this.chatSelected = index;
             this.selectChats();
-            this.getChatMessages(contact_id)
+            this.getChatMessages(item)
         },
-        async getChatMessages(contact_id){
+        async getChatMessages(item){
             const params={
                 user_id: JSON.parse(this.user).id,
-                for_user_id: contact_id
+                for_user_id: item.contact_id
             }
             try{
                 const data=await this.sendRequest('get-single-chat-messages','post',params);
                 const dataParsed=JSON.parse(data.data[0].user_messages)
-                this.$emit('setChatMessages',dataParsed)
+                this.$emit('setChatMessages',dataParsed,item)
             }catch(e){
                 console.log(e);
             }

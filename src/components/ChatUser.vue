@@ -11,12 +11,13 @@
             : 'message-container-others message-container')
         "
       >
-
         <div class="message-content">{{ item.message }}</div>
         <div class="message-footer">
             <span class="message-time">{{ item.time }}</span>
             <b-icon icon="check2" />
         </div>
+        <div class="text-light" style="width:20px;height:20px" role="status" :id="'spinner-chat'+index"></div>
+
       </div>
     </div>
   </div>

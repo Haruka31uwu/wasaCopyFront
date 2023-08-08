@@ -1,12 +1,12 @@
 <template>
   <div style="width: 100%; height: 100%; background-color: #fbfcfc" class="d-flex">
     <div class="side-bar">
-      <chat-user-side-bar @setChatMessages="(evt)=>setChatMessages(evt)" />
+      <chat-user-side-bar @setChatMessages="(evt,contact)=>setChatMessages(evt,contact)" />
     </div>
     <div class="main-content">
-      <chat-user-bar :user="user" v-if="G_CHAT_SELECTED"  />
-    <chat-user :chat-messages="chatMessages" :user="user" id="chatContainer" />
-    <message-bar @message="sendMessage" />
+      <chat-user-bar :contact="contact" v-if="G_CHAT_SELECTED"  />
+      <chat-user :chat-messages="chatMessages" :user="user" id="chatContainer" />
+      <message-bar @message="sendMessage" />
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       user: null,
+      contact: {},
       chatMessages: [],
     };
   },
@@ -36,7 +37,6 @@ export default {
     })
   },
   created() {
-    console.log(JSON.parse(this.G_USER))
     this.setUser(JSON.parse(this.G_USER));
   },
   mounted() {},
@@ -57,22 +57,17 @@ export default {
     setUser(user) {
       this.user = user;
     },
-    setChatMessages(chatMessages) {
-      console.log(chatMessages);
+    setChatMessages(chatMessages,contact) {
       this.chatMessages = chatMessages;
+      this.contact = contact;
+
     },
     sendMessage(message) {
       this.chatMessages.push({
         message: message,
         date: "12/12/12",
         time: "12:12:12",
-        user: {
-          idUser: 1,
-          name: "Johanna Florez Diaz",
-          chatName: "LaNiñademisOjos <3",
-          imageUrl: "url",
-          cellphone: "1234567890",
-        },
+        created_by: this.user.id,
       });
     },
     scrollToBottom() {
@@ -94,9 +89,11 @@ export default {
 
 }
 .main-content {
-  width: 75%;
+  width: 100%;
   height: 100%;
   z-index: 0;
+}.side-bar{
+
 }
 
 </style>

@@ -44,7 +44,6 @@ export default {
     },
     methods:{
         async expandComponent(){
-            console.log('expandComponent')
             this.expanded=true;
              setTimeout(() => {
                 this.hidingLogin = true;
