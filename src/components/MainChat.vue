@@ -6,7 +6,7 @@
     <div class="main-content">
       <chat-user-bar :contact="contact" v-if="G_CHAT_SELECTED"  />
       <chat-user :chat-messages="chatMessages" :user="user" id="chatContainer" />
-      <message-bar @message="sendMessage" />
+      <message-bar @message="sendMessage" />a
     </div>
   </div>
 </template>
