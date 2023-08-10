@@ -9,13 +9,10 @@ import store from './store';
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('token');
   if (to.meta.requiresAuth && isAuthenticated !== '123456') {
-    next('/home'); // Redirige a la página de inicio si no está autenticado
+    console.log('No autenticado');
+    next('/'); // Redirige a la página de inicio si no está autenticado
   } else {
-    if (to.path === '/') {
-      next('/chat'); // Redirige al chat si está autenticado y en la página de inicio
-    } else {
-      next(); // Permite que la navegación continúe si no cumple las condiciones anteriores
-    }
+    next();
   }
 
 });

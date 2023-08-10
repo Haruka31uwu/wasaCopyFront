@@ -1,14 +1,11 @@
 {
   "name": "chat_uwu",
   "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost:3000",
-  "homepage": "/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && ./deploy.sh"
 
   },
   "dependencies": {
