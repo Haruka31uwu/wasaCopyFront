@@ -14,9 +14,8 @@
         <div class="message-content">{{ item.message }}</div>
         <div class="message-footer">
             <span class="message-time">{{ item.time }}</span>
-            <b-icon icon="check2" />
+            <b-icon icon="check2" :class="item.seen_at?'text-primary':''" />
         </div>
-        <div class="text-light" style="width:20px;height:20px" role="status" :id="'spinner-chat'+index"></div>
 
       </div>
     </div>
@@ -42,8 +41,10 @@ export default {
   computed: {
     ...mapGetters({
       G_CHAT_SELECTED: 'G_CHAT_SELECTED',
+      
     })
   },
+
 };
 </script>
 <style scoped>
@@ -73,6 +74,7 @@ export default {
 .message-container {
   width: auto;
   max-width: 300px;
+  min-width: 5em;
   margin: .5em 1em;
   height: auto;
   padding: 1em;

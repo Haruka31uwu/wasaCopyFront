@@ -8,7 +8,9 @@ const store = new Vuex.Store({
   state: {
     S_USER:null,
     S_USER_CONTACTS:null,
-    S_CHAT_SELECTED:false
+    S_CHAT_SELECTED:false,
+    S_CONTACT_SELECTED:null,
+    S_NEW_MESSAGE:null,
     },
   mutations: {
     SET_USER(state, user) {
@@ -17,10 +19,15 @@ const store = new Vuex.Store({
     SET_USER_CONTACTS(state, userContacts) {
         state.S_USER_CONTACTS = userContacts;
     },
-    SET_CHAT_SELECTED(state ) {
+    SET_CHAT_SELECTED(state) {
         state.S_CHAT_SELECTED = true;
+    },
+    SET_CONTACT_SELECTED(state, contactId) {
+        state.S_CONTACT_SELECTED = contactId;
+    },
+    SET_NEW_MESSAGE(state, message) {
+        state.S_NEW_MESSAGE = message;
     }
-    
   },
   actions: {
     A_SET_USER({ commit }, user) {
@@ -31,6 +38,12 @@ const store = new Vuex.Store({
     },
     A_SET_CHAT_SELECTED({ commit }) {
         commit('SET_CHAT_SELECTED');
+    },
+    A_SET_CONTACT_SELECTED({ commit }, contactId) {
+        commit('SET_CONTACT_SELECTED', contactId);
+    },
+    A_SET_NEW_MESSAGE({ commit }, message) {
+        commit('SET_NEW_MESSAGE', message);
     }
   },
   getters: {
@@ -49,6 +62,12 @@ const store = new Vuex.Store({
     },
     G_CHAT_SELECTED: state => {
         return state.S_CHAT_SELECTED;
+    },
+    G_CONTACT_SELECTED: state => {
+        return state.S_CONTACT_SELECTED;
+    },
+    G_NEW_MESSAGE: state => {
+        return state.S_NEW_MESSAGE;
     }
   },
 });

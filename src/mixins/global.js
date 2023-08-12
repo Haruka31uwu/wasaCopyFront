@@ -16,7 +16,6 @@ const globalMixin={
             icon:'error',
             title:title?title:'Oops....',
             text:message?message:'Something went wrong',
-            footer:'<a href="">Why do I have this issue?</a>'
             }) 
         },
         addPreloader(){

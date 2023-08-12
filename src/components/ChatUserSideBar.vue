@@ -1,5 +1,5 @@
 <template >
-    <div style="width: 100%;" class="main-side-bar">
+    <div class="main-side-bar">
         <user-side-bar-bar />
         <div class="user-contacts" >
             <div class="user-contacts-item" 
@@ -10,8 +10,20 @@
                 <div class="user-contacts-item-img">
                     <b-icon icon="person-circle" font-scale="3"  variant="primary" ></b-icon>
                 </div>
-                <div class="user-contacts-item-info">{{item.contact_name}}</div>
-                <div class="user-contacts-item-time">12:12</div>
+                <div class="user-contacts-item-info">
+                    <div class="user-contacts-item-info-name">
+                        {{ item.contact_name }}
+                    </div>
+                    <div class="user-contacts-item-info-last-message" 
+                    :id="item.pending_messages?`user-contacts-item-info-last-message-${item.pending_messages[0].message_id}`:''">
+                        {{ item.pending_messages?formatMessage(item.pending_messages[0].message_content):'' }}
+                    </div>
+                </div>
+                <div class="user-contacts-item-last-message">
+                    <span class="message-time">{{ item.pending_messages?getFormatDate(item.pending_messages[0].created_at):'' }}</span>
+                    <span :class="item.pending_messages?'message-count':''">{{ item.pending_messages?item.pending_messages.length:'' }}</span>
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -35,7 +47,7 @@ export default {
         }
     },
     created(){
-
+        console.log(JSON.parse(JSON.parse(this.contacts))[0].pending_messages[0]);
     },
     methods:{
         ...mapActions({
@@ -60,7 +72,30 @@ export default {
             }
 
         },
-    }
+        getFormatDate(datestr){
+            const date = new Date(datestr);
+            // const day = date.getDate();
+            // const month = date.getMonth()+1;
+            // const year = date.getFullYear();
+            const hour = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
+            if(hour>12){
+                return `${hour-12}:${minutes}:${seconds} PM`
+            }else{
+                return `${hour}:${minutes}:${seconds} AM`
+            }
+            // return `${hour}:${minutes}:${seconds}`
+        },
+        formatMessage(message) {
+      const maxMessageWidth = 24;
+      console.log(message.length) // Tamaño máximo del mensaje antes de recortar
+      if (message.length > maxMessageWidth) {
+        return message.slice(0, maxMessageWidth) + '...';
+      }
+      return message;
+    },
+}
 }
 </script>
 <style scoped>
@@ -93,5 +128,30 @@ export default {
     }.user-contacts-item-time{
         width: 20%;
         font-size: 0.8em;
+    }.main-side-bar{
+        position: fixed;
+        top: 0;
+        width: 25em;
+        min-width: 400px;
+    }.user-contacts-item-last-message{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        margin: 0 auto;
+    }.user-contacts-item-last-message span{
+        text-align: center;
+        font-size: 0.8em;
+    }.message-time{
+        color: #bdc3c7;
+    }.message-count{
+        background-color: green;
+        color: white;
+        border-radius: 50%;
+        padding:  2px 8px;
+    }.user-contacts-item-info-last-message{
+        font-size: 0.9em;
+        color: #bdc3c7;
+        width: 100%;
     }
 </style>

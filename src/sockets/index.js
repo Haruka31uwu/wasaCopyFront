@@ -1,5 +1,5 @@
 import Echo from "laravel-echo"
-
+import store from "../store/index"
 window.Pusher = require('pusher-js');
 
 const echo= new Echo({
@@ -12,7 +12,12 @@ const echo= new Echo({
     disableStats: true,
 });
 echo.channel('text-messages').listen('.message',(data)=>{
-    console.log(data.message);
+    console.log(data.messageData,'socket');
+    const user=JSON.parse(store.getters.G_USER)
+    if(user.id==data.messageData.for){
+        store.dispatch('A_SET_NEW_MESSAGE',data.messageData);
+
+    }
 });
 
 export default echo;
